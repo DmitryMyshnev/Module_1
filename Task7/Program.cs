@@ -4,37 +4,17 @@ namespace Task7
 {
     class Program
     {
-        static int SearchValue(string minOrMax, int[] rndArray)
+       
+        static void SearchEvenOrNotEven(string evenOrNoteven, int[] rndArray, int[] tmpArray)
         {
+            int maxValue = 0, minValue, index;
 
-            int maxValue = 0, minValue;
-
-            for (int i = 0; i < 10; i++)  // search max value
-            {
-                if (rndArray[i] >= maxValue)
-                    maxValue = rndArray[i];
-            }
-
-
-            minValue = rndArray[0];
-            for (int n = 0; n < 10; n++)  // search min value
-            {
-                if (rndArray[n] <= minValue)
-                    minValue = rndArray[n];
-            }
-
-
-            return rndArray;
-        }
-        static int SearchEvenOrNotEven(string evenOrNoteven, int[] rndArray)
-        {
-            int maskIndexArrayEvenOrNotEven = 0;
             if (evenOrNoteven == "even")
                 for (int i = 0; i < 10; i++)
                     if (rndArray[i] % 2 == 0)
                     {
                         Console.Write(rndArray[i] + ",");
-                        maskIndexArrayEvenOrNotEven |= 1 << i;
+                        tmpArray[i] = rndArray[i];
                     }
                     else
                    if (evenOrNoteven == "noteven")
@@ -42,14 +22,31 @@ namespace Task7
                             if (rndArray[n] % 2 == 1)
                             {
                                 Console.Write(rndArray[n] + ",");
-                                maskIndexArrayEvenOrNotEven |= 1 << n;
+                                tmpArray[n] = rndArray[n];
                             }
 
-            return maskIndexArrayEvenOrNotEven;
+            for (int i = 0; i < 10; i++)  // search max value
+            {
+                if (tmpArray [i] >= maxValue)
+                    maxValue = rndArray[i];
+                index = i;
+            }
+            minValue = tmpArray[0];
+            for (int n = 0; n < 10; n++)  // search min value
+            {
+                if (tmpArray[n] <= minValue)
+                    minValue = tmpArray[n];
+                index = n;
+            }
+            Console.WriteLine("Max = "+maxValue);
+            Console.WriteLine("Min = " + minValue);
+
+            Console.WriteLine("Change array: " + maxValue);
         }
         static void Main(string[] args)
         {
             int[] array = new int[10];
+            int[] tempArray = new int[10];
             int value;
             Random rnd = new Random();
             for (int i = 0; i < 10; i++)
@@ -63,12 +60,12 @@ namespace Task7
             }
             Console.WriteLine("\n");
 
-
             Console.WriteLine("Enter 'even' or 'noteven': ");
             string evenNoteven = Console.ReadLine();
-            value = SearchEvenOrNotEven(evenNoteven, array);
-            //value = SearchValue(minOrmax, array);
-            Console.Write(value + "\n");
+
+            SearchEvenOrNotEven(evenNoteven, array,tempArray);
+            
+            
         }
     }
 }
