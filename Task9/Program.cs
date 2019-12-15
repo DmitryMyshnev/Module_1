@@ -22,12 +22,13 @@ namespace Task9
                     Console.WriteLine("");
                 }
             Console.WriteLine("");
+            Console.WriteLine("New Array:");
             int[] arrayOfMatrix = new int[Convert.ToInt32 (Math.Pow(sizeOfMatrix , 2))];
             for (int i = sizeOfMatrix-1; i >= 0; i--)
                 for (int n = sizeOfMatrix-1; n >= 0; n--)
                 {
-                   // arrayOfMatrix[indexMatrix] = matrix[i, n];
-                    Console.Write(matrix[n,i] + " ");
+                    arrayOfMatrix[indexMatrix] = matrix[n, i];
+                    Console.Write(arrayOfMatrix[indexMatrix] + " ");
                     indexMatrix++;
                 }
                 
