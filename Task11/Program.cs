@@ -17,7 +17,7 @@ namespace Task11
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter number.");
+            Console.WriteLine("Enter number:");
             ulong enterNumber = ulong.Parse(Console.ReadLine());
             ulong factorial = 0;
             factorial = Factorial(enterNumber);
