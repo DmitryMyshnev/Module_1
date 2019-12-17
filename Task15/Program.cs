@@ -18,7 +18,7 @@ namespace Task15
                 Console.WriteLine("Simbol is not found");
             else
             {
-                text = text.Remove(index, index + 1);
+                text = text.Remove(index, 1);
                 Console.WriteLine(text);
             }
         }
