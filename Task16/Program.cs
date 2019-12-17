@@ -4,6 +4,9 @@ namespace Task16
 {
     class Program
     {
+        /*
+         Поиск подстроки в строке.
+             */
         static void Main(string[] args)
         {
             string text, simbol;

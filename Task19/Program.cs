@@ -4,6 +4,9 @@ namespace Task19
 {
     class Program
     {
+        /*
+         Проверка строки на палиндром.
+             */
         static void Main(string[] args)
         {
             string text;

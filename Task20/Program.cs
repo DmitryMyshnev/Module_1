@@ -4,6 +4,9 @@ namespace Task20
 {
     class Program
     {
+        /*
+         Реализация метода Split. Т.е. разбиение строки на массив строк по заданному символу
+             */
         static void Main(string[] args)
         {
             string text;

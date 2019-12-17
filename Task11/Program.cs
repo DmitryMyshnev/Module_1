@@ -4,6 +4,9 @@ namespace Task11
 {
     class Program
     {
+        /*
+         Рекурсивный метод поиска факториала.
+             */
         static ulong Factorial(ulong x)
         {
             if (x == 0)

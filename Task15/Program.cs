@@ -4,6 +4,9 @@ namespace Task15
 {
     class Program
     {
+        /*
+          Удаление символа из строки.
+             */
         static void Main(string[] args)
         {
             string text, simbol;

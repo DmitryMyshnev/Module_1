@@ -4,6 +4,9 @@ namespace Task10
 {
     class Program
     {
+        /*
+         Сумма диагоналей квадратной матрицы.
+             */
         static void Main(string[] args)
         {
             int sizeOfMatrix = 5;

@@ -4,6 +4,9 @@ namespace Task2
 {
     class Program
     {
+        /*
+          Найти максимум или минимум или среднее из 3 чисел. (можно с выбором операции)
+        */
         static void Main(string[] args)
         {
             int a = int.Parse(Console.ReadLine()),

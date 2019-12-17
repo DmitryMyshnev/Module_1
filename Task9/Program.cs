@@ -4,6 +4,9 @@ namespace Task9
 {
     class Program
     {
+        /*
+         Матрица в массив, по колонкам в обратном порядке.
+             */
         static void Main(string[] args)
         {
             int sizeOfMatrix = 5; 

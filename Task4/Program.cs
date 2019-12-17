@@ -4,6 +4,9 @@ namespace Task4
 {
     class Program
     {
+        /*
+         Возведение в степень (число и степень указывает пользователь) без Math.Pow
+             */
         static void Main(string[] args)
         {
             

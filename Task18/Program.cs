@@ -4,6 +4,9 @@ namespace Task18
 {
     class Program
     {
+        /*
+         Реверс строки.
+             */
         static void Main(string[] args)
         {
             string text; 

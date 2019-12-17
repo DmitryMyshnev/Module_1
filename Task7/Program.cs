@@ -4,7 +4,9 @@ namespace Task7
 {
     class Program
     {
-
+        /*
+         Поиск в массиве мин. и максимального, и четного или нечетного элемента (указывает пользователь) с последующей их заменой (поменять местами). 
+             */
         static void SearchEvenOrNotEven(string evenOrNoteven, int[] rndArray, int[] tmpArray)
         {
             int maxValue = 0, minValue,  tmp = 0, endArray = 0,buff=0;

@@ -4,6 +4,9 @@ namespace task3
 {
     class Program
     {
+        /*
+           Название цифр. Пользователь вводит число. Нужно вывести название всех цифр в нем.
+        */
         static void Main(string[] args)
         {
             string[] nameArray = { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", };

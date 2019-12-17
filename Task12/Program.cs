@@ -4,6 +4,9 @@ namespace Task12
 {
     class Program
     {
+        /*
+         Сортировка массива. Пузырьком и вставками.
+             */
         static void Bothle (int[] arr, int size)
             {
             int buff = 0;

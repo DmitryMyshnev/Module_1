@@ -4,6 +4,9 @@ namespace Task8
 {
     class Program
     {
+        /*
+         Сравнение двух массивов. Поэлементно
+             */
         static void Main(string[] args)
         {
             Random rnd = new Random();

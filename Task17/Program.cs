@@ -4,6 +4,9 @@ namespace Task17
 {
     class Program
     {
+        /*
+         Удаление подстроки.
+             */
         static void Main(string[] args)
         {
             string text, simbol;

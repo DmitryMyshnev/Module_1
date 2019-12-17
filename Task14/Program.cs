@@ -4,6 +4,9 @@ namespace Task14
 {
     class Program
     {
+        /*
+         Поиск символа в строке.
+             */
         static void Main(string[] args)
         {
             string text,simbol;

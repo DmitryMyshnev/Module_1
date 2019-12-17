@@ -4,6 +4,9 @@ namespace Task13
 {
     class Program
     {
+        /*
+         Бинарный поиск.
+             */
         static int BinarySearch(int[] arr, int val, int size)
         {
             int search;
