@@ -32,7 +32,11 @@ namespace BlackJack
     class Program
     {
       static  Card[] Deck = new Card[36];
-      static int[] value = new int[9]
+      static Card[] ComputersCard = new Card[10];
+      static Card[] HumansCard = new Card[10];
+        static int ComputerScore = 0;
+        static int HumanScore = 0;
+        static int[] value = new int[9]
       {
         (int)Value.Six, 
         (int)Value.Seven, 
@@ -66,15 +70,8 @@ namespace BlackJack
             {"H","H","H","H","H","H","H","H","H","H"}
         };
         static void MixDeck()
-        {
-            //int[] arr = new int[36];
-            Random rnd = new Random();
-            /*for (int i = 0; i < 36; i++)
-            {
-                arr[i] = i;
-                Console.Write(arr[i] + " ");
-            }
-            Console.WriteLine("");*/
+        {     
+            Random rnd = new Random();         
             for (int i = 0; i < 36; i++)
             {
                 int tmp;
@@ -100,46 +97,139 @@ namespace BlackJack
                     Deck[n].RangName = rangeNameBasic[i];                  
                     n++;
                 }           
-           }
+        }
+        static void UpdateDisplay()
+        {
+            Console.SetCursorPosition(55, 0);
+            Console.WriteLine("Black Jack");
+            DrawCard(0, 9, 0, "Closed card");
+        }
         static void SizeWindow()
         {
             Console.Clear();
-            Console.SetWindowSize(120, 33);
+            Console.SetWindowSize(120, 40);
             Console.BufferWidth = 120;
-            Console.BufferHeight = 33;
+            Console.BufferHeight = 40;
         }
-        static void DrawCard(int x, int y)
+        static void DrawCard(int x, int y, int indexDeck,string cards)
         {
             Console.CursorVisible = false;
-            for (int i = 1; i < 9; i++)
+            
+            if (cards == "Closed card")
             {
-                Console.SetCursorPosition(x, y+i); Console.Write("|");             
+                for (int i = 1; i < 8; i++)
+                {
+                    Console.SetCursorPosition(x, y + i); Console.Write("|");
+                }
+                Console.SetCursorPosition(x + 1, y); Console.Write("_______");
+                for (int i = 1; i < 8; i++)
+                {
+                    Console.SetCursorPosition(x + 8, y + i); Console.Write("|");
+                }
+                Console.SetCursorPosition(x + 1, y + 7); Console.Write("_______");
+                for (int i = 1,k = 7; i < 8; i++,k--)
+                {
+                    Console.SetCursorPosition(x + i, y + i); Console.Write(@"\");
+                    Console.SetCursorPosition(x + k, y + i); Console.Write(@"/");
+                }              
+                Console.SetCursorPosition(x + 4, y + 4); Console.Write("X");
             }
-
-            Console.SetCursorPosition(x+1, y); Console.Write("______");
-            for (int i = 1; i < 9; i++)
-            {
-                Console.SetCursorPosition(x+7, y+i); Console.Write("|");              
-            }
-            Console.SetCursorPosition(x+1, y+8); Console.Write("______");
+            else
+                if (cards == "Open card")
+                {
+                    for (int i = 1, k = 7; i < 8; i++, k--)
+                  {
+                    Console.SetCursorPosition(x + i, y + i); Console.Write(" ");
+                    Console.SetCursorPosition(x + k, y + i); Console.Write(" ");
+                  }
+                    for (int i = 1; i < 8; i++)
+                  {
+                      Console.SetCursorPosition(x, y + i); Console.Write("|");
+                  }
+                      Console.SetCursorPosition(x + 1, y); Console.Write("_______");
+                    for (int i = 1; i < 8; i++)
+                  {
+                      Console.SetCursorPosition(x + 8, y + i); Console.Write("|");
+                  }
+                      Console.SetCursorPosition(x + 1, y + 7); Console.Write("_______");
+                   
+                      Console.SetCursorPosition(x + 1, y + 1);
+                      Console.Write(Deck[indexDeck].RangName);
+                      Console.SetCursorPosition(x + (Deck[indexDeck].RangName == "10" ? 6 : 7), y + 7); 
+                      Console.Write(Deck[indexDeck].RangName);
+                }
+           
         }
+        static void Ruls()
+        {
+            Console.SetCursorPosition(0, 33);
+            Console.WriteLine("Button Control:");
+            Console.WriteLine("");
+            Console.WriteLine("Take a card:" +" t");
+            Console.WriteLine("Skip a move:"+" s");
+        }
+        static void ClearArea(int posArea, int sizeArea)
+        {
+            Console.SetCursorPosition(0,posArea);
+            for (int i = 0; i < Console.WindowWidth; i++)
+                for(int j = 0;j < sizeArea; j++)             
+                  Console.Write(" ");
+            
+        }
+        static void StartGame(int selectPlayer)
+        {
+            ComputersCard[0] = Deck[0];
+            ComputerScore += ComputersCard[0].Rang;
+            DrawCard(20, 1,ComputersCard[0].Rang, "Closed card");
 
+            ComputersCard[0] = Deck[1];
+            ComputerScore += ComputersCard[1].Rang;
+            DrawCard(29, 1, ComputersCard[1].Rang, "Closed card");
+
+            HumansCard[0] = Deck[3];
+            HumanScore += HumansCard[0].Rang;
+            DrawCard(20, 17, ComputersCard[0].Rang, "Open card");
+
+            HumansCard[1] = Deck[4];
+            HumanScore += HumansCard[1].Rang;
+            DrawCard(29, 17, ComputersCard[1].Rang, "Open card");
+            Console.SetCursorPosition(1, 5);
+            Console.WriteLine("PC Score: "+ComputerScore);
+            Console.SetCursorPosition(1, 21);
+            Console.WriteLine("Your Score: " + HumanScore);
+
+        }
         static void Main(string[] args)
         {
-            //SizeWindow();
+            int selectPlayer=0;
+            Random rndSelectPlayer = new Random();
+             
+            SizeWindow();
+            UpdateDisplay();
             InitDeck();
             MixDeck();
-            for (int i = 0; i < 36; i++)
-            {
-                Console.Write(Deck[i].RangName+" ");
-                Console.Write(Deck[i].Suit+" ");
-                Console.WriteLine("");
-            }
-            //Console.WriteLine((char)Value.Queen);
-           // Console.WriteLine(Value.Ten.ToString("d"));
-           // Console.WriteLine(Value.Seven.ToString("d"));
+                     
+            Console.SetCursorPosition(0,27);
+            Console.WriteLine("Press Enter to randomly select who starting to play.");
             Console.ReadLine();
-            
+            ClearArea(27, 1); 
+            Console.SetCursorPosition(0, 27);
+            selectPlayer = rndSelectPlayer.Next(0, 2);
+            if(selectPlayer == 0)
+                Console.Write("First step doing PC. ");
+            else
+                Console.Write("First step doing You. ");
+            Console.WriteLine("Press Enter to starting to play. ");
+            Ruls();
+            Console.ReadLine();
+            StartGame(selectPlayer);
+            Console.ReadLine();
+            //  Console.WriteLine((char)Value.Queen);
+            //Console.WriteLine(Value.Ten.ToString("d"));
+            // Console.WriteLine(Value.Seven.ToString("d"));           
+
+
+
 
 
         }
