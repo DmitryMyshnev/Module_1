@@ -193,13 +193,14 @@ namespace BlackJack
             HumansCard[1] = Deck[4];
             HumanScore += HumansCard[1].Rang;
             DrawCard(29, 17, ComputersCard[1].Rang, "Open card");
-            Console.SetCursorPosition(1, 5);
-            Console.WriteLine("PC Score: "+ComputerScore);
+            //Console.SetCursorPosition(1, 5);
+           // Console.WriteLine("PC Score: "+ComputerScore);
             Console.SetCursorPosition(1, 21);
             Console.WriteLine("Your Score: " + HumanScore);
 
         }
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             int selectPlayer=0;
             Random rndSelectPlayer = new Random();
