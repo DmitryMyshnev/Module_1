@@ -50,24 +50,26 @@ namespace BlackJack
       };
       static string[] suitNameBasic = new string[4] {"Diamonds","Hearts","Spades","Clubs"};
       static string[] rangeNameBasic = new string[9] {"6", "7", "8", "9", "10", "J", "Q", "K", "A", };
-      static string[,] strategy = new string[16,10] 
+      static int[,] strategy = new int[16,10] 
         {
-            {"H","H","H","H","H","H","H","H","H","H"},
-            {"H","H","H","H","H","H","H","H","H","H"},
-            {"H","H","H","H","H","H","H","H","H","H"},
-            {"H","H","H","H","H","H","H","H","H","H"},
-            {"H","H","H","S","S","H","H","H","H","H"},
-            {"H","S","S","S","S","H","H","H","H","H"},
-            {"H","S","S","S","S","H","H","H","H","H"},
-            {"S","S","S","S","S","H","H","H","H","H"},
-            {"S","S","S","S","S","H","H","H","H","H"},
-            {"S","S","S","S","S","S","S","S","S","S"},
-            {"S","S","S","S","S","S","S","H","H","H"},
-            {"H","H","H","H","H","H","H","H","H","H"},
-            {"H","H","H","H","H","H","H","H","H","H"},
-            {"H","H","H","H","H","H","H","H","H","H"},
-            {"H","H","H","H","H","H","H","H","H","H"},
-            {"H","H","H","H","H","H","H","H","H","H"}
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+            {1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 }, 
+            {1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 },
+            {1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 },
+            {1 ,1 ,1 ,0 ,0 ,1 ,1 ,1 ,1 ,1 },
+            {1 ,0 ,0 ,0 ,0 ,1 ,1 ,1 ,1 ,1 },
+            {1 ,0 ,0 ,0 ,0 ,1 ,1 ,1 ,1 ,1 },
+            {0 ,0 ,0 ,0 ,0 ,1 ,1 ,1 ,1 ,1 },
+            {0 ,0 ,0 ,0 ,0 ,1 ,1 ,1 ,1 ,1 },
+            {0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 },
+            {0 ,0 ,0 ,0 ,0 ,0 ,0 ,1 ,1 ,1 },
+            {1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 },
+            {1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 },
+            {1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 },
+            {1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 },
+            {1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 }
+
+
         };
         static void MixDeck()
         {     
@@ -176,11 +178,19 @@ namespace BlackJack
                   Console.Write(" ");
             
         }
+        static int ComputerMove()
+        {
+            if (ComputerScore == 21)
+                return 0;
+            if ((ComputersCard[0].Rang == 11) && (ComputersCard[1].Rang) == 11)
+                return -1;
+
+        }
         static void StartGame(int selectPlayer)
         {
             ComputersCard[0] = Deck[0];
             ComputerScore += ComputersCard[0].Rang;
-            DrawCard(20, 1,ComputersCard[0].Rang, "Closed card");
+            DrawCard(20, 1, ComputersCard[0].Rang, "Closed card");
 
             ComputersCard[0] = Deck[1];
             ComputerScore += ComputersCard[1].Rang;
@@ -211,16 +221,16 @@ namespace BlackJack
             MixDeck();
                      
             Console.SetCursorPosition(0,27);
-            Console.WriteLine("Press Enter to randomly select who starting to play.");
+            Console.WriteLine("Press Enter to select who starts play randomly.");
             Console.ReadLine();
             ClearArea(27, 1); 
             Console.SetCursorPosition(0, 27);
             selectPlayer = rndSelectPlayer.Next(0, 2);
             if(selectPlayer == 0)
-                Console.Write("First step doing PC. ");
+                Console.Write("PC does the first step. ");
             else
-                Console.Write("First step doing You. ");
-            Console.WriteLine("Press Enter to starting to play. ");
+                Console.Write("You do the first step. ");
+            Console.WriteLine("Press Enter to start play. ");
             Ruls();
             Console.ReadLine();
             StartGame(selectPlayer);
