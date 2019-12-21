@@ -22,8 +22,19 @@ namespace Task2
                  maxValue = b;
              else
                  maxValue = c;
+            Console.WriteLine("Enter: ");
              row = Console.CursorLeft;
              col = Console.CursorTop;
+            do
+            {
+                Console.SetCursorPosition(row, col);               
+                str = Console.ReadLine();
+                Console.SetCursorPosition(row, col);
+                Console.WriteLine(" ");
+
+            }
+            while (str != "t");
+
             do
             {
                 Console.SetCursorPosition(row, col);
@@ -33,8 +44,7 @@ namespace Task2
 
             }
             while (str != "t");
-
-             Console.WriteLine("Max Value = "+maxValue);
+            Console.WriteLine("Max Value = "+maxValue);
            /*int[] arr = new int[36];
             Random rnd = new Random();
             for (int i = 0; i < 36; i++)
