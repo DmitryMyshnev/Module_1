@@ -13,6 +13,8 @@ namespace Task2
                  b = int.Parse(Console.ReadLine()),
                  c = int.Parse(Console.ReadLine()),
                  maxValue;
+            string str;
+            int row, col;
              if (a > b && a > c)
                  maxValue = a;
              else
@@ -20,6 +22,17 @@ namespace Task2
                  maxValue = b;
              else
                  maxValue = c;
+             row = Console.CursorLeft;
+             col = Console.CursorTop;
+            do
+            {
+                Console.SetCursorPosition(row, col);
+                str = Console.ReadLine();
+                Console.SetCursorPosition(row, col);
+                Console.WriteLine(" ");
+
+            }
+            while (str != "t");
 
              Console.WriteLine("Max Value = "+maxValue);
            /*int[] arr = new int[36];
