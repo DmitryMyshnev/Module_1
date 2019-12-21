@@ -227,7 +227,7 @@ namespace BlackJack
             Console.CursorVisible = true;
             do
             {
-                answerHuman = null;
+                
                 Console.SetCursorPosition(0, 30);
                 Console.Write("Make your chuise: ");
                 answerHuman = Console.ReadLine();
