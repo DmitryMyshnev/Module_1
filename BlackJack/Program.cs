@@ -24,10 +24,10 @@ namespace BlackJack
     }
     enum Suit
     {
-        Diamonds, //бубны
-        Hearts,  // червы
-        Spades,  // пики
-        Clubs    // трефы
+        Diamonds, 
+        Hearts,  
+        Spades,  
+        Clubs    
     }
     class Program
     {
@@ -189,68 +189,53 @@ namespace BlackJack
                 } 
         }
         static int ComputerMove()
-        {
-            
-            if (computerScore == 21)
-                return 0;
-
-            if (ComputersCard[0].Rang == 11 && ComputersCard[1].Rang == 11)
-                return -1;
-
+        {           
             if (computerScore < 8)
                 return 1;
             
                 if (computerScore > 21)
                 return 0;
             else
-                return strategy[computerScore-8, quanityCardHuman - 2];
-            
+                return strategy[computerScore-8, quanityCardHuman - 2];          
         }
         static int HumanMove()
-        {
-            
+        {            
             string answerHuman;
-            if (humanScore == 21)
-                return 0;
-
-            if (HumansCard[0].Rang == 11 && HumansCard[1].Rang == 11)
-                return 1;
-
             if (humanScore > 21)
                 return 0;
 
             Console.CursorVisible = true;
-            do
+            Console.SetCursorPosition(0, 27);
+            Console.Write("Make your choice: ");
+            int row = Console.CursorLeft;
+            int col = Console.CursorTop;
+            answerHuman = Console.ReadLine();
+            answerHuman = answerHuman.ToUpper();
+            while (answerHuman != "T" && answerHuman != "S")
             {
-               
-                Console.SetCursorPosition(0, 27);
-                Console.Write("Make your chuise: ");
-                int row = Console.CursorLeft;
-                int col = Console.CursorTop;
+                Console.SetCursorPosition(row, col);
+                for (int i = 0; i < answerHuman.Length; i++)
+                    Console.Write(" ");
                 Console.SetCursorPosition(row, col);
                 answerHuman = Console.ReadLine();
-                Console.SetCursorPosition(row, col);
-                Console.Write(" ");
+                answerHuman = answerHuman.ToUpper();
             }
-            while (answerHuman != "t" && answerHuman != "s");
-                        
-            if (answerHuman == "t")
+            if (answerHuman == "T")
             {
                 return 1;
             }
             else
-                return 0;  
-            
+                return 0;             
         }
         static void StartGame(int selectPlayer)
         {
             bool notFinishGame = true;
             int twoAce = 0;
             ClearArea(27, 1);
+
             for (int i = 0; i < 2; i++)
             {
                 ComputersCard[quanityCardComputer] = Deck[i];
-                //computerScore = 15;
                 computerScore += ComputersCard[quanityCardComputer].Rang;
                 DrawCard(i == 0 ? 20 : 29, 1, ComputersCard[quanityCardComputer].RangName, "Closed card");
                 quanityCardComputer++;
@@ -259,7 +244,6 @@ namespace BlackJack
             for (int i = 2; i < 4; i++)
             {
                 HumansCard[quanityCardHuman] = Deck[i];
-                //humanScore = 13;
                 humanScore += HumansCard[quanityCardHuman].Rang;
                 DrawCard(i == 2 ? 20 : 29, 17, HumansCard[quanityCardHuman].RangName, "Open card");
                 quanityCardHuman++;
@@ -269,6 +253,19 @@ namespace BlackJack
             int stepsOfGame = 0;
             while (notFinishGame)
             {
+                if (computerScore == 21 || humanScore == 21)     
+                    break;
+                if (HumansCard[0].Rang == 11 && HumansCard[1].Rang == 11)
+                {
+                    twoAce = 1;
+                    break;
+                }               
+                if (HumansCard[0].Rang == 11 && HumansCard[1].Rang == 11)
+                {
+                    twoAce = 2;
+                    break;
+                }
+                
                 if (selectPlayer == 0 && stepsOfGame != 2)
                 {
                     switch (ComputerMove())
@@ -284,12 +281,8 @@ namespace BlackJack
                         case 0:
                             selectPlayer = 1;
                             stepsOfGame++;
-                            break;
-                        case -1:
-                            twoAce |= 1;
-                            break;
+                            break;                  
                     }
-
                 }
                 if (selectPlayer == 1 && stepsOfGame != 2)
                 {
@@ -300,28 +293,26 @@ namespace BlackJack
                             humanScore += HumansCard[quanityCardHuman].Rang;
                             DrawCard(20 + 9 * quanityCardHuman, 17, HumansCard[quanityCardHuman].RangName, "Open card");
                             quanityCardHuman++;
-                            WritePoint("human", humanScore);
-                           
+                            WritePoint("human", humanScore);                        
                             break;
                         case 0:
                             selectPlayer = 0;
                             stepsOfGame++;
-                            break;
-                        case -1:
-                            twoAce |= 1 << 1;
-                            break;
+                            break;                   
                     }
-
                 }
                 if (stepsOfGame == 2)
                     notFinishGame = false;
             }
+            //ClearArea(0, 9);
+            for (int i = 0; i < quanityCardComputer; i++)
+            {
+                DrawCard(20 + 9 * i, 1, ComputersCard[i].RangName, "Open card");
+            }
             int winOrLose = 0;
                        
-                if (humanScore >= 22 && computerScore <= 20) winOrLose = -1;
-                   
-                if (computerScore >= 22 && humanScore <= 20) winOrLose = 1;
-                   
+                if (humanScore >= 22 && computerScore <= 20) winOrLose = -1;                   
+                if (computerScore >= 22 && humanScore <= 20) winOrLose = 1;                  
                 if ((computerScore >= 22 && humanScore > 22) || (computerScore > 22 && humanScore >= 22))
                     if (computerScore > humanScore) winOrLose = 1;                       
                     else
@@ -333,15 +324,10 @@ namespace BlackJack
                     winOrLose = -1;
 
                 if (computerScore == 21 && humanScore != 21) winOrLose = -1;
-
                 if (computerScore != 21 && humanScore == 21) winOrLose = 1;
-
                 if ((computerScore == humanScore) || twoAce == 3) winOrLose = 0;
-
-                if (twoAce == 1) winOrLose = -1;
-                  
-                if (twoAce == 2) winOrLose = 1;
-                   
+                if (twoAce == 1) winOrLose = -1;                 
+                if (twoAce == 2) winOrLose = 1;                  
                 if (computerScore == 21 && humanScore == 21) winOrLose = 0;
                                  
                 switch(winOrLose)
@@ -351,26 +337,20 @@ namespace BlackJack
                             resultHuman += humanScore;
                        else
                             resultHuman =+ 21;
-                       if (computerScore < 22)
-                            resultComputer += computerScore;
-                       else
-                        resultComputer += 21;
+                       
                         WritePoint("pc", computerScore);
                         Console.SetCursorPosition(50, 28);
-                        Console.WriteLine("YOU WIN!!!");                       
+                        Console.WriteLine("YOU WON!!!");                       
                         break;
                     case -1:
                         if (computerScore < 22)
                             resultComputer += computerScore;
                         else
                              resultComputer += 21;
-                        if (humanScore < 22)
-                             resultHuman += humanScore;
-                        else
-                             resultHuman = +21;
+                    
                         WritePoint("pc", computerScore);
                         Console.SetCursorPosition(50, 28);
-                        Console.WriteLine("YOU LOSE.");
+                        Console.WriteLine("YOU LOST.");
                         break;
                     case 0:
                          WritePoint("pc", computerScore);
@@ -408,7 +388,7 @@ namespace BlackJack
             if(selectPlayer == 0)
                 Console.Write("PC does the first step. ");
             else
-                Console.Write("You do the first step. ");
+            Console.Write("You do the first step. ");
             Console.WriteLine("Press Enter to start play. ");
             Console.SetCursorPosition(0, 33);
             Console.WriteLine("Button Control:");
@@ -419,20 +399,21 @@ namespace BlackJack
             StartGame(selectPlayer);
             Console.SetCursorPosition(37, 29);
             Console.Write(@"Do you want to start new game? Yes\No  ");
+            Console.CursorVisible = true;
             int row = Console.CursorLeft;
             int col = Console.CursorTop;
-            do
-            {                
+            answerNewGame = Console.ReadLine();
+            answerNewGame = answerNewGame.ToUpper();
+            while (answerNewGame != "YES" && answerNewGame != "NO")
+            {
+                Console.SetCursorPosition(row, col);
+                for (int i = 0; i < answerNewGame.Length; i++)
+                      Console.Write(" ");
                 Console.SetCursorPosition(row, col);
                 answerNewGame = Console.ReadLine();
-                Console.SetCursorPosition(row, col);
-                Console.Write("   ");
+                answerNewGame = answerNewGame.ToUpper();                                                           
             }
-            while (answerNewGame == "");
-            
-            answerNewGame = answerNewGame.ToUpper();
-
-
+                         
             if (answerNewGame == "YES")         
                 Main(newGame);           
             else
@@ -443,9 +424,7 @@ namespace BlackJack
                 Console.SetCursorPosition(40, 28);
                 Console.WriteLine("Your Score: " + resultHuman);
             }
-            Console.ReadLine();
-            Console.Clear();
-                      
+            Console.ReadLine();                    
         }
     }
 }
