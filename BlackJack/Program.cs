@@ -113,9 +113,9 @@ namespace BlackJack
         static void SizeWindow()
         {
             Console.Clear();
-            Console.SetWindowSize(120, 40);
+            Console.SetWindowSize(120, 42);
             Console.BufferWidth = 120;
-            Console.BufferHeight = 40;
+            Console.BufferHeight = 42;
         }
         static void DrawCard(int x, int y, string rangName, string cards)
         {
@@ -356,17 +356,16 @@ namespace BlackJack
                          WritePoint("pc", computerScore);
                         Console.SetCursorPosition(50, 28);
                         Console.WriteLine("DRAW.");
-                        break;
-                        
+                        break;                       
                 }
-            ClearArea(27, 1);      
-            
+            ClearArea(27, 1);                  
         }
-         static void Main(string[] args)
-        {
-            int selectPlayer=0;
+       static bool newGame = false;
+       static int selectPlayer = 0;
+        static void Main(string[] args)
+        {            
             string answerNewGame;
-            string[] newGame = new string[1];
+            string[] startNewGame = new string[1];
             Random rndSelectPlayer = new Random();
 
             computerScore = 0;
@@ -378,17 +377,21 @@ namespace BlackJack
             UpdateDisplay();
             InitDeck();
             MixDeck();
-                     
-            Console.SetCursorPosition(0,27);
-            Console.WriteLine("Press Enter to select who starts play randomly.");
-            Console.ReadLine();
-            ClearArea(27, 1); 
+                              
+            if (!newGame)
+            {
+                Console.SetCursorPosition(0, 27);
+                Console.WriteLine("Press Enter to select who starts play randomly.");
+                Console.ReadLine();
+                selectPlayer = rndSelectPlayer.Next(0, 2);
+                newGame = true;
+            }
+            ClearArea(27, 1);
             Console.SetCursorPosition(0, 27);
-            selectPlayer = rndSelectPlayer.Next(0, 2);
-            if(selectPlayer == 0)
+            if (selectPlayer == 0)
                 Console.Write("PC does the first step. ");
             else
-            Console.Write("You do the first step. ");
+                Console.Write("You do the first step. ");
             Console.WriteLine("Press Enter to start play. ");
             Console.SetCursorPosition(0, 33);
             Console.WriteLine("Button Control:");
@@ -397,6 +400,10 @@ namespace BlackJack
             Console.WriteLine("Skip a move:" + " s");
             Console.ReadLine();
             StartGame(selectPlayer);
+            if (selectPlayer == 0)
+                selectPlayer = 1;
+            else
+                selectPlayer = 0;           
             Console.SetCursorPosition(37, 29);
             Console.Write(@"Do you want to start new game? Yes\No  ");
             Console.CursorVisible = true;
@@ -415,7 +422,7 @@ namespace BlackJack
             }
                          
             if (answerNewGame == "YES")         
-                Main(newGame);           
+                Main(startNewGame);           
             else
             {
                 ClearArea(28, 2);
@@ -423,8 +430,8 @@ namespace BlackJack
                 Console.Write("PC Score:   "+resultComputer);
                 Console.SetCursorPosition(40, 28);
                 Console.WriteLine("Your Score: " + resultHuman);
-            }
-            Console.ReadLine();                    
+                Console.SetCursorPosition(0, 37);
+            }           
         }
     }
 }
