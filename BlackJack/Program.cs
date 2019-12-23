@@ -400,10 +400,7 @@ namespace BlackJack
             Console.WriteLine("Skip a move:" + " s");
             Console.ReadLine();
             StartGame(selectPlayer);
-            if (selectPlayer == 0)
-                selectPlayer = 1;
-            else
-                selectPlayer = 0;           
+            selectPlayer = (selectPlayer == 0 ? 1 : 0);                    
             Console.SetCursorPosition(37, 29);
             Console.Write(@"Do you want to start new game? Yes\No  ");
             Console.CursorVisible = true;
